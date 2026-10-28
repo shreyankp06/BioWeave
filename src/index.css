@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base ─────────────────────────────────────────────────────────── */
+body {
+  @apply bg-beige font-sans text-forest antialiased transition-colors duration-300;
+}
+.dark body {
+  @apply bg-dark-bg text-white;
+}
+
+h1, h2, h3 { font-family: 'Space Grotesk', system-ui, sans-serif; }
+
+:focus-visible { outline: 2px solid #f06449; outline-offset: 3px; }
+
+/* ── Animations ───────────────────────────────────────────────────── */
+@keyframes rise      { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes float     { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+.rise      { animation: rise .45s ease both; }
+.spin-slow { animation: spin-slow 40s linear infinite; }
+.float     { animation: float 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .spin-slow, .float { animation: none; }
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { @apply bg-beige/60 dark:bg-dark-muted; }
+::-webkit-scrollbar-thumb { @apply rounded-full bg-sage/50 hover:bg-sage/80; }
+
+/* ── Smooth theme transitions ─────────────────────────────────────── */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+/* But NOT transforms/opacity (breaks animations) */
+.rise, .spin-slow, .float { transition: none; }
+
+/* ── Glass card effect ────────────────────────────────────────────── */
+.glass {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Custom prose for description ────────────────────────────────── */
+.desc-text {
+  @apply whitespace-pre-line leading-relaxed text-forest/75 dark:text-white/65;
+}
